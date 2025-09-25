@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MS3 Clerkship Locations Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>MS3 Clerkship Locations - Arizona</h1>
+            <div class="controls">
+                <div class="block-toggles">
+                    <h3>Filter by Block:</h3>
+                    <label>
+                        <input type="checkbox" id="internal-medicine-sub-block-a" checked>
+                        <span class="color-box" style="background-color: #1E90FF;"></span>
+                        Internal Medicine Sub Block A
+                    </label>
+                    <label>
+                        <input type="checkbox" id="neurology" checked>
+                        <span class="color-box" style="background-color: #8A2BE2;"></span>
+                        Neurology
+                    </label>
+                    <label>
+                        <input type="checkbox" id="obstetrics-gynecology" checked>
+                        <span class="color-box" style="background-color: #FF1493;"></span>
+                        OB/GYN
+                    </label>
+                    <label>
+                        <input type="checkbox" id="pediatrics-inpatient" checked>
+                        <span class="color-box" style="background-color: #FF6347;"></span>
+                        Pediatrics - Inpatient
+                    </label>
+                    <label>
+                        <input type="checkbox" id="pediatrics-outpatient" checked>
+                        <span class="color-box" style="background-color: #FFA500;"></span>
+                        Pediatrics - Outpatient
+                    </label>
+                    <label>
+                        <input type="checkbox" id="psychiatry" checked>
+                        <span class="color-box" style="background-color: #9370DB;"></span>
+                        Psychiatry
+                    </label>
+                    <label>
+                        <input type="checkbox" id="family-medicine" checked>
+                        <span class="color-box" style="background-color: #228B22;"></span>
+                        Family Medicine
+                    </label>
+                    <label>
+                        <input type="checkbox" id="surgery-sub-block-b" checked>
+                        <span class="color-box" style="background-color: #4169E1;"></span>
+                        Surgery Sub-Block B
+                    </label>
+                </div>
+                
+                <div class="control-buttons">
+                    <button id="show-all" class="btn">Show All</button>
+                    <button id="hide-all" class="btn">Hide All</button>
+                </div>
+            </div>
+        </header>
+
+        <div id="map"></div>
+
+        <div class="shortlist-section">
+            <h3>Preference Shortlists:</h3>
+            <div class="shortlist-tabs">
+                <button class="shortlist-tab-btn active" data-block="internal-medicine-sub-block-a">Internal Medicine Sub Block A</button>
+                <button class="shortlist-tab-btn" data-block="neurology">Neurology</button>
+                <button class="shortlist-tab-btn" data-block="obstetrics-gynecology">OB/GYN</button>
+                <button class="shortlist-tab-btn" data-block="pediatrics-inpatient">Pediatrics - Inpatient</button>
+                <button class="shortlist-tab-btn" data-block="pediatrics-outpatient">Pediatrics - Outpatient</button>
+                <button class="shortlist-tab-btn" data-block="psychiatry">Psychiatry</button>
+                <button class="shortlist-tab-btn" data-block="family-medicine">Family Medicine</button>
+                <button class="shortlist-tab-btn" data-block="surgery-sub-block-b">Surgery Sub-Block B</button>
+            </div>
+            <div class="shortlist-container">
+                <div class="shortlist-content active" id="shortlist-internal-medicine-sub-block-a">
+                    <h4>Internal Medicine Sub Block A - Preferences</h4>
+                    <div class="shortlist-instructions">Drag to reorder your preferences</div>
+                    <ul class="shortlist-list" data-block="internal-medicine-sub-block-a"></ul>
+                </div>
+                <div class="shortlist-content" id="shortlist-neurology">
+                    <h4>Neurology - Preferences</h4>
+                    <div class="shortlist-instructions">Drag to reorder your preferences</div>
+                    <ul class="shortlist-list" data-block="neurology"></ul>
+                </div>
+                <div class="shortlist-content" id="shortlist-obstetrics-gynecology">
+                    <h4>OB/GYN - Preferences</h4>
+                    <div class="shortlist-instructions">Drag to reorder your preferences</div>
+                    <ul class="shortlist-list" data-block="obstetrics-gynecology"></ul>
+                </div>
+                <div class="shortlist-content" id="shortlist-pediatrics-inpatient">
+                    <h4>Pediatrics - Inpatient - Preferences</h4>
+                    <div class="shortlist-instructions">Drag to reorder your preferences</div>
+                    <ul class="shortlist-list" data-block="pediatrics-inpatient"></ul>
+                </div>
+                <div class="shortlist-content" id="shortlist-pediatrics-outpatient">
+                    <h4>Pediatrics - Outpatient - Preferences</h4>
+                    <div class="shortlist-instructions">Drag to reorder your preferences</div>
+                    <ul class="shortlist-list" data-block="pediatrics-outpatient"></ul>
+                </div>
+                <div class="shortlist-content" id="shortlist-psychiatry">
+                    <h4>Psychiatry - Preferences</h4>
+                    <div class="shortlist-instructions">Drag to reorder your preferences</div>
+                    <ul class="shortlist-list" data-block="psychiatry"></ul>
+                </div>
+                <div class="shortlist-content" id="shortlist-family-medicine">
+                    <h4>Family Medicine - Preferences</h4>
+                    <div class="shortlist-instructions">Drag to reorder your preferences</div>
+                    <ul class="shortlist-list" data-block="family-medicine"></ul>
+                </div>
+                <div class="shortlist-content" id="shortlist-surgery-sub-block-b">
+                    <h4>Surgery Sub-Block B - Preferences</h4>
+                    <div class="shortlist-instructions">Drag to reorder your preferences</div>
+                    <ul class="shortlist-list" data-block="surgery-sub-block-b"></ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="location-list">
+            <h3>All Locations:</h3>
+            <div id="locations-container"></div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
